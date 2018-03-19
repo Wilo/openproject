@@ -48,6 +48,8 @@ import {
   WorkPackageTableConfiguration,
   WorkPackageTableConfigurationObject
 } from 'core-app/components/wp-table/wp-table-configuration';
+import {OpModalService} from 'core-components/op-modals/op-modal.service';
+import {ColumnsModalComponent} from 'core-components/op-modals/modals/columns-modal.component';
 
 @Component({
   template: require('!!raw-loader!./wp-table.directive.html'),
@@ -92,7 +94,7 @@ export class WorkPackagesTableController implements OnInit, OnDestroy {
               public injector:Injector,
               private states:States,
               readonly tableState:TableState,
-              @Inject(columnsModalToken) private columnsModal:any,
+              readonly opModalService:OpModalService,
               private opContextMenu:OPContextMenuService,
               @Inject(I18nToken) private I18n:op.I18n,
               private wpTableGroupBy:WorkPackageTableGroupByService,
@@ -180,7 +182,7 @@ export class WorkPackagesTableController implements OnInit, OnDestroy {
 
   public openColumnsModal() {
     this.opContextMenu.close();
-    this.columnsModal.activate();
+    this.opModalService.show(ColumnsModalComponent);
   }
 
   public get columnMenuEnabled() {
